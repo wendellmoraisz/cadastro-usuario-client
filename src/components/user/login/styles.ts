@@ -51,6 +51,14 @@ export const Container = styled.div`
         &::placeholder{
             color: #fff;
         }
+
+        &:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 40px #224957 inset;
+        }
+ 
+        &:-webkit-autofill {
+        -webkit-text-fill-color: #fff;
+        }
     }
 
     a {
