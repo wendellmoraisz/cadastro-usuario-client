@@ -31,13 +31,8 @@ export const Container = styled.div`
         margin: 0;
     }
     
-    form {
-        width: 320px;
-    }
-    
     input, button{
         font-size: 1.3rem;
-        font-weight: 200;
         padding: 10px;
         color: #ffff;
         border-radius: 8px;
@@ -68,6 +63,10 @@ export const Container = styled.div`
     }
 `;
 
+export const formWrapper = styled.div`
+    width: 320px;
+`
+
 export const PasswordButton = styled.span`
     font-size: 1.3rem;
     background: transparent;
@@ -80,7 +79,6 @@ export const LoginButton = styled.button`
     border: 0;
     background: #20DF7F;
     cursor: pointer;
-    margin: auto;
     &:hover {
         box-shadow: 0px 3px 10px 0px #000;
     }

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import * as C from "../login/styles";
+import * as C from "../styles";
 import { LoginSVG } from "../svg/LoginSVG";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-export function Register(){
+export function Register() {
 
     const [showPasswordIcon, setShowPasswordIcon] = useState(faEye);
     const [inputType, setInputType] = useState("password");
@@ -19,31 +19,55 @@ export function Register(){
         };
     };
 
-    return(
+    const [userName, setUserName] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+    const [userPassword, setUserPassword] = useState("");
+
+    const sendRegister = () => {
+        fetch("http://localhost:3001/register", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: userName,
+                email: userEmail,
+                password: userPassword,
+            }),
+        })
+            .then(res => {
+                console.log(res);
+            })
+            .catch(e => console.log(e));
+    }
+
+    return (
         <C.Wrapper>
 
-        <C.Container>
-            <h1>Register</h1>
-            <p>Create you account and start managing your candidates!</p>
-            <form action="/" >
-                <C.InputWrapper>
-                <input type="text" required name="name" placeholder="Fullname"/>
-                </C.InputWrapper>
+            <C.Container>
+                <h1>Register</h1>
+                <p>Create you account and start managing your candidates!</p>
 
-                <C.InputWrapper>
-                <input type="email" required name="email" placeholder="Email"/>
-                </C.InputWrapper>
+                <C.formWrapper>
+                    <C.InputWrapper>
+                        <input type="text" required name="name" placeholder="Fullname" onChange={e => setUserName(e.target.value)} />
+                    </C.InputWrapper>
 
-                <C.InputWrapper>
-                <input type={inputType} required name="password" placeholder="Password" />
-                <C.PasswordButton onClick={handlePassword}><FontAwesomeIcon icon={showPasswordIcon}/></C.PasswordButton>
-                </C.InputWrapper>
+                    <C.InputWrapper>
+                        <input type="email" required name="email" placeholder="Email" onChange={e => setUserEmail(e.target.value)} />
+                    </C.InputWrapper>
 
-                <C.LoginButton type="submit">Register</C.LoginButton>
-            </form>
-        </C.Container>
-        
-            <LoginSVG/>
+                    <C.InputWrapper>
+                        <input type={inputType} required name="password" placeholder="Password" onChange={e => setUserPassword(e.target.value)} />
+                        <C.PasswordButton onClick={handlePassword}><FontAwesomeIcon icon={showPasswordIcon} /></C.PasswordButton>
+                    </C.InputWrapper>
+
+                    <C.LoginButton onClick={sendRegister}>Register</C.LoginButton>
+                </C.formWrapper>
+
+            </C.Container>
+
+            <LoginSVG />
 
         </C.Wrapper>
     )
