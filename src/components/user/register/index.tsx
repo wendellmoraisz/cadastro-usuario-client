@@ -85,7 +85,7 @@ export function Register() {
                     <C.InputWrapper>
                     <C.IconSpan><FontAwesomeIcon icon={faKey}/></C.IconSpan>
                         <input type={inputType} required name="password" placeholder="Senha" onChange={e => setUserPassword(e.target.value)} />
-                        <C.IconSpan onClick={handlePassword}><FontAwesomeIcon icon={showPasswordIcon} /></C.IconSpan>
+                        <C.ShowPasswordButton onClick={handlePassword}><FontAwesomeIcon icon={showPasswordIcon} /></C.ShowPasswordButton>
                     </C.InputWrapper>
 
                     <C.LoginButton onClick={sendRegister}>Criar conta</C.LoginButton>

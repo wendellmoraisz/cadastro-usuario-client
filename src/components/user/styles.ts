@@ -40,7 +40,6 @@ export const Container = styled.div`
     
     input {
         background: transparent;
-        box-sizing: border-box;
         border: 0;
         outline: 0;
         &::placeholder{
@@ -72,7 +71,11 @@ export const IconSpan = styled.span`
     font-size: 1.3rem;
     background: transparent;
     border: 0;
+`;
+    
+export const ShowPasswordButton = styled(IconSpan)`
     cursor: pointer;
+    margin-left: -15px;
 `;
 
 export const LoginButton = styled.button`
@@ -87,6 +90,7 @@ export const LoginButton = styled.button`
 `;
 
 export const InputWrapper = styled.div`
+    box-sizing: border-box;
     width: 100%;
     display:flex;
     align-items: center;

@@ -70,7 +70,7 @@ export function Login() {
                     <C.InputWrapper>
                         <C.IconSpan><FontAwesomeIcon icon={faKey}/></C.IconSpan>
                         <input type={inputType} name="password" placeholder="Senha" onChange={e => setUserPassword(e.target.value)} />
-                        <C.IconSpan onClick={handlePassword}><FontAwesomeIcon icon={showPasswordIcon} /></C.IconSpan>
+                        <C.ShowPasswordButton onClick={handlePassword}><FontAwesomeIcon icon={showPasswordIcon} /></C.ShowPasswordButton>
                     </C.InputWrapper>
 
                     <C.LoginButton onClick={sendLogin}>Login</C.LoginButton>
