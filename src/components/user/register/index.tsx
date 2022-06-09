@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash, faAt, faUserAstronaut, faKey } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components";
+import { RestTypeNode } from "typescript";
+import { ServerResponse } from "http";
 
 export function Register() {
 
@@ -27,12 +29,12 @@ export function Register() {
 
     const navigate = useNavigate();
 
-    const sendRegister = () => {
+    const sendRegister = async () => {
         if (userName == "" || userEmail == "" || userPassword == "") {
             setInvalidRegisterMessage("Por favor, preencha todos os campos :)")
             setInvalidRegisterOpacity("1");
         } else {
-            fetch("http://localhost:3001/register", {
+            const response: Response = await fetch("http://localhost:3001/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -42,16 +44,14 @@ export function Register() {
                     email: userEmail,
                     password: userPassword,
                 }),
-            })
-                .then(res => res.json())
-                .then(res => {
-                    if (res.status == 200) navigate("/");
-                    setInvalidRegisterOpacity("1");
-                    setInvalidRegisterMessage("Já existe uma conta cadastrada com este email");
-                })
-                .catch(e => {
-                    console.log(e);
-                });
+            });
+
+            if (!response.ok) throw new Error(response.statusText);
+
+            const data = await response.json();
+            if (data.status == 200) navigate("/");
+            setInvalidRegisterOpacity("1");
+            setInvalidRegisterMessage("Já existe uma conta cadastrada com este email");
         }
     }
 
@@ -73,17 +73,17 @@ export function Register() {
 
                 <C.formWrapper>
                     <C.InputWrapper>
-                        <C.IconSpan><FontAwesomeIcon icon={faUserAstronaut}/></C.IconSpan>
+                        <C.IconSpan><FontAwesomeIcon icon={faUserAstronaut} /></C.IconSpan>
                         <input type="text" required name="name" placeholder="Nome" onChange={e => setUserName(e.target.value)} />
                     </C.InputWrapper>
 
                     <C.InputWrapper>
-                        <C.IconSpan><FontAwesomeIcon icon={faAt}/></C.IconSpan>
+                        <C.IconSpan><FontAwesomeIcon icon={faAt} /></C.IconSpan>
                         <input type="email" required name="email" placeholder="Email" onChange={e => setUserEmail(e.target.value)} />
                     </C.InputWrapper>
 
                     <C.InputWrapper>
-                    <C.IconSpan><FontAwesomeIcon icon={faKey}/></C.IconSpan>
+                        <C.IconSpan><FontAwesomeIcon icon={faKey} /></C.IconSpan>
                         <input type={inputType} required name="password" placeholder="Senha" onChange={e => setUserPassword(e.target.value)} />
                         <C.ShowPasswordButton onClick={handlePassword}><FontAwesomeIcon icon={showPasswordIcon} /></C.ShowPasswordButton>
                     </C.InputWrapper>
