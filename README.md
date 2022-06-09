@@ -7,8 +7,8 @@ Status: Em desenvolvimento :construction:
 ## Screenshots
 ### Tela de login
 
-![Login inteface](./public/screenshots/login.png)
+![Login inteface](./public/screenshots/.png)
 
 ### Tela de cadastro
 
-![Register interface](./public/screenshots/register.png)
+![Register interface](./public/screenshots/.png)
