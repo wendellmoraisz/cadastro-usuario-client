@@ -53,8 +53,7 @@ export function Login() {
         background: #c44d56;
         padding: 8px 20px;
         border-radius: 8px;
-        transition: all .3s ease;
-    `
+    `;
 
     return (
         <C.Wrapper>

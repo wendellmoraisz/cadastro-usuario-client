@@ -65,6 +65,7 @@ export const Container = styled.div`
 
 export const formWrapper = styled.div`
     width: 320px;
+    margin-bottom: 20px;
 `
 
 export const PasswordButton = styled.span`

@@ -4,6 +4,7 @@ import { LoginSVG } from "../svg/LoginSVG";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom"
+import styled from "styled-components";
 
 export function Register() {
 
@@ -27,25 +28,41 @@ export function Register() {
     const navigate = useNavigate();
 
     const sendRegister = () => {
-        fetch("http://localhost:3001/register", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: userName,
-                email: userEmail,
-                password: userPassword,
-            }),
-        })
-            .then(res => res.json())
-            .then(res => {
-                if (res.status == 200){
-                    navigate("/");
-                }
+        if (userName == "" || userEmail == "" || userPassword == "") {
+            setInvalidRegisterMessage("Por favor, preencha todos os campos :)")
+            setInvalidRegisterOpacity("1");
+        } else {
+            fetch("http://localhost:3001/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: userName,
+                    email: userEmail,
+                    password: userPassword,
+                }),
             })
-            .catch(e => console.log(e));
+                .then(res => res.json())
+                .then(res => {
+                    if (res.status == 200) navigate("/");
+                    setInvalidRegisterOpacity("1");
+                    setInvalidRegisterMessage("Já existe uma conta cadastrada com este email");
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+        }
     }
+
+    const [invalidRegisterMessage, setInvalidRegisterMessage] = useState("");
+    const [invalidRegisterOpacity, setInvalidRegisterOpacity] = useState("0");
+    const InvalidLogin = styled.p`
+        opacity: ${invalidRegisterOpacity};
+        background: #c44d56;
+        padding: 8px 20px;
+        border-radius: 8px;
+    `;
 
     return (
         <C.Wrapper>
@@ -69,7 +86,9 @@ export function Register() {
                     </C.InputWrapper>
 
                     <C.LoginButton onClick={sendRegister}>Criar conta</C.LoginButton>
+
                 </C.formWrapper>
+                <InvalidLogin>{invalidRegisterMessage}</InvalidLogin>
 
             </C.Container>
 
