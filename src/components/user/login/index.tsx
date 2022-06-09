@@ -3,7 +3,8 @@ import { LoginSVG } from "../svg/LoginSVG";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 export function Login() {
 
@@ -19,10 +20,11 @@ export function Login() {
             setInputType("password");
         };
     };
-
+    
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
-
+    
+    const navigate = useNavigate();
     const sendLogin = () => {
         fetch("http://localhost:3001/login", {
             method: "POST",
@@ -34,34 +36,50 @@ export function Login() {
                 password: userPassword,
             }),
         })
+            .then(res => res.json())
             .then(res => {
-                console.log(res);
+                if (res.status == 200) {
+                    navigate("/home");
+                } else {
+                    setInvalidLoginOpacity("1");
+                }
             })
             .catch(e => console.log(e));
     }
+
+    const [invalidLoginOpacity, setInvalidLoginOpacity] = useState("0");
+    const InvalidLogin = styled.p`
+        opacity: ${invalidLoginOpacity};
+        background: #c44d56;
+        padding: 8px 20px;
+        border-radius: 8px;
+        transition: all .3s ease;
+    `
 
     return (
         <C.Wrapper>
 
             <C.Container>
-                <h1>Sign In</h1>
-                <p>Sign in and start managing your candidates!</p>
+                <h1>Login</h1>
+                <p>Entre e tenha acesso exclusivo ao App!</p>
                 <C.formWrapper>
                     <C.InputWrapper>
-                        <input type="email" name="email" placeholder="Login" onChange={e => setUserEmail(e.target.value)} />
+                        <input type="email" name="email" placeholder="Email" onChange={e => setUserEmail(e.target.value)} />
                     </C.InputWrapper>
 
                     <C.InputWrapper>
-                        <input type={inputType} name="password" placeholder="Password" onChange={e => setUserPassword(e.target.value)} />
+                        <input type={inputType} name="password" placeholder="Senha" onChange={e => setUserPassword(e.target.value)} />
                         <C.PasswordButton onClick={handlePassword}><FontAwesomeIcon icon={showPasswordIcon} /></C.PasswordButton>
                     </C.InputWrapper>
 
                     <C.LoginButton onClick={sendLogin}>Login</C.LoginButton>
                 </C.formWrapper>
-                <Link to="/register">Create Account</Link>
+                <Link to="/register">Cadastre-se</Link>
+
+                <InvalidLogin>Login inválido</InvalidLogin>
             </C.Container>
 
-            <LoginSVG/>
+            <LoginSVG />
 
         </C.Wrapper>
     );

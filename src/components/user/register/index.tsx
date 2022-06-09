@@ -3,6 +3,7 @@ import * as C from "../styles";
 import { LoginSVG } from "../svg/LoginSVG";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom"
 
 export function Register() {
 
@@ -23,6 +24,8 @@ export function Register() {
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
 
+    const navigate = useNavigate();
+
     const sendRegister = () => {
         fetch("http://localhost:3001/register", {
             method: "POST",
@@ -35,8 +38,11 @@ export function Register() {
                 password: userPassword,
             }),
         })
+            .then(res => res.json())
             .then(res => {
-                console.log(res);
+                if (res.status == 200){
+                    navigate("/");
+                }
             })
             .catch(e => console.log(e));
     }
@@ -45,12 +51,12 @@ export function Register() {
         <C.Wrapper>
 
             <C.Container>
-                <h1>Register</h1>
-                <p>Create you account and start managing your candidates!</p>
+                <h1>Criar conta</h1>
+                <p>Crie sua conta e comece utilizar o App!</p>
 
                 <C.formWrapper>
                     <C.InputWrapper>
-                        <input type="text" required name="name" placeholder="Fullname" onChange={e => setUserName(e.target.value)} />
+                        <input type="text" required name="name" placeholder="Nome" onChange={e => setUserName(e.target.value)} />
                     </C.InputWrapper>
 
                     <C.InputWrapper>
@@ -58,11 +64,11 @@ export function Register() {
                     </C.InputWrapper>
 
                     <C.InputWrapper>
-                        <input type={inputType} required name="password" placeholder="Password" onChange={e => setUserPassword(e.target.value)} />
+                        <input type={inputType} required name="password" placeholder="Senha" onChange={e => setUserPassword(e.target.value)} />
                         <C.PasswordButton onClick={handlePassword}><FontAwesomeIcon icon={showPasswordIcon} /></C.PasswordButton>
                     </C.InputWrapper>
 
-                    <C.LoginButton onClick={sendRegister}>Register</C.LoginButton>
+                    <C.LoginButton onClick={sendRegister}>Criar conta</C.LoginButton>
                 </C.formWrapper>
 
             </C.Container>
