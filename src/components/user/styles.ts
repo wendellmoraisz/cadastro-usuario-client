@@ -68,7 +68,7 @@ export const formWrapper = styled.div`
     margin-bottom: 20px;
 `
 
-export const PasswordButton = styled.span`
+export const IconSpan = styled.span`
     font-size: 1.3rem;
     background: transparent;
     border: 0;
@@ -92,5 +92,6 @@ export const InputWrapper = styled.div`
     align-items: center;
     background: #224957;
     border-radius: 8px;
+    padding: 0 8px;
     margin: 30px 0;
 `;

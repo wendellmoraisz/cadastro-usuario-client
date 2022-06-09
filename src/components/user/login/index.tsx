@@ -1,7 +1,7 @@
 import * as C from "../styles";
 import { LoginSVG } from "../svg/LoginSVG";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faKey, faAt } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -63,12 +63,14 @@ export function Login() {
                 <p>Entre e tenha acesso exclusivo ao App!</p>
                 <C.formWrapper>
                     <C.InputWrapper>
+                        <C.IconSpan><FontAwesomeIcon icon={faAt}/></C.IconSpan>
                         <input type="email" name="email" placeholder="Email" onChange={e => setUserEmail(e.target.value)} />
                     </C.InputWrapper>
 
                     <C.InputWrapper>
+                        <C.IconSpan><FontAwesomeIcon icon={faKey}/></C.IconSpan>
                         <input type={inputType} name="password" placeholder="Senha" onChange={e => setUserPassword(e.target.value)} />
-                        <C.PasswordButton onClick={handlePassword}><FontAwesomeIcon icon={showPasswordIcon} /></C.PasswordButton>
+                        <C.IconSpan onClick={handlePassword}><FontAwesomeIcon icon={showPasswordIcon} /></C.IconSpan>
                     </C.InputWrapper>
 
                     <C.LoginButton onClick={sendLogin}>Login</C.LoginButton>

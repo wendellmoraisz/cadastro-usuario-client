@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as C from "../styles";
 import { LoginSVG } from "../svg/LoginSVG";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faAt, faUserAstronaut, faKey } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components";
 
@@ -73,16 +73,19 @@ export function Register() {
 
                 <C.formWrapper>
                     <C.InputWrapper>
+                        <C.IconSpan><FontAwesomeIcon icon={faUserAstronaut}/></C.IconSpan>
                         <input type="text" required name="name" placeholder="Nome" onChange={e => setUserName(e.target.value)} />
                     </C.InputWrapper>
 
                     <C.InputWrapper>
+                        <C.IconSpan><FontAwesomeIcon icon={faAt}/></C.IconSpan>
                         <input type="email" required name="email" placeholder="Email" onChange={e => setUserEmail(e.target.value)} />
                     </C.InputWrapper>
 
                     <C.InputWrapper>
+                    <C.IconSpan><FontAwesomeIcon icon={faKey}/></C.IconSpan>
                         <input type={inputType} required name="password" placeholder="Senha" onChange={e => setUserPassword(e.target.value)} />
-                        <C.PasswordButton onClick={handlePassword}><FontAwesomeIcon icon={showPasswordIcon} /></C.PasswordButton>
+                        <C.IconSpan onClick={handlePassword}><FontAwesomeIcon icon={showPasswordIcon} /></C.IconSpan>
                     </C.InputWrapper>
 
                     <C.LoginButton onClick={sendRegister}>Criar conta</C.LoginButton>
